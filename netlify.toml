@@ -4,3 +4,12 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[context.production.environment]
+  TTS_API_URL = "https://executive-patent-airlines-wan.trycloudflare.com"
+
+[context.deploy-preview.environment]
+  TTS_API_URL = "https://executive-patent-airlines-wan.trycloudflare.com"
+
+[context.branch-deploy.environment]
+  TTS_API_URL = "https://executive-patent-airlines-wan.trycloudflare.com"
