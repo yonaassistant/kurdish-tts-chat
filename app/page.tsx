@@ -2,6 +2,8 @@
 
 import { useState, useRef } from 'react';
 
+const VERSION = '1.0.1';
+
 export default function Home() {
   const [text, setText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -43,28 +45,33 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <div className="max-w-2xl mx-auto pt-8">
+    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-2 sm:p-4">
+      <div className="max-w-2xl mx-auto pt-4 sm:pt-8">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white">
-            <h1 className="text-3xl font-bold mb-2">🎤 Kurdish TTS Chat</h1>
-            <p className="text-blue-100">Type in Kurdish and hear it spoken!</p>
+          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-4 sm:p-6 text-white">
+            <div className="flex justify-between items-start">
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold mb-2">🎤 Kurdish TTS Chat</h1>
+                <p className="text-blue-100 text-sm sm:text-base">Type in Kurdish and hear it spoken!</p>
+              </div>
+              <span className="text-xs text-blue-200 bg-blue-700 px-2 py-1 rounded">v{VERSION}</span>
+            </div>
           </div>
 
           {/* Messages */}
-          <div className="p-6 space-y-3 h-96 overflow-y-auto">
+          <div className="p-3 sm:p-6 space-y-3 h-64 sm:h-96 overflow-y-auto">
             {messages.length === 0 ? (
-              <div className="text-center text-gray-400 py-12">
-                <p className="text-lg">سڵاو! Start typing to hear Kurdish speech...</p>
+              <div className="text-center text-gray-400 py-8 sm:py-12">
+                <p className="text-base sm:text-lg">سڵاو! Start typing to hear Kurdish speech...</p>
               </div>
             ) : (
               messages.map((msg, idx) => (
                 <div
                   key={idx}
-                  className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500"
+                  className="bg-blue-50 rounded-lg p-3 sm:p-4 border-l-4 border-blue-500"
                 >
-                  <p className="text-gray-800 text-lg">{msg.text}</p>
+                  <p className="text-gray-900 text-base sm:text-lg font-medium">{msg.text}</p>
                   <p className="text-xs text-gray-500 mt-1">
                     {msg.timestamp.toLocaleTimeString()}
                   </p>
@@ -74,26 +81,31 @@ export default function Home() {
           </div>
 
           {/* Input Form */}
-          <form onSubmit={handleSubmit} className="p-6 border-t">
-            <div className="flex gap-3">
+          <form onSubmit={handleSubmit} className="p-3 sm:p-6 border-t bg-gray-50">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
               <input
                 type="text"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="بنووسە... (Type in Kurdish)"
                 disabled={isLoading}
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 text-lg"
+                className="flex-1 px-3 sm:px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 text-base sm:text-lg font-medium text-gray-900"
                 dir="rtl"
               />
               <button
                 type="submit"
                 disabled={isLoading || !text.trim()}
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors text-base sm:text-lg whitespace-nowrap"
               >
-                {isLoading ? '🔊...' : '🔊 Speak'}
+                {isLoading ? '🔊 Loading...' : '🔊 Speak'}
               </button>
             </div>
           </form>
+        </div>
+
+        {/* Footer */}
+        <div className="text-center text-gray-500 text-xs sm:text-sm mt-4">
+          <p>Powered by razhan/mms-tts-ckb • Kurdish (Sorani) TTS</p>
         </div>
 
         {/* Hidden audio element */}
